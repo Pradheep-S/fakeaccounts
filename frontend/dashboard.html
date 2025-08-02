@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Fake Account Detector</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-brand">
+            <h2>🔍 Fake Account Detector</h2>
+        </div>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="upload.html">Upload Data</a>
+            <a href="dashboard.html" class="active">Dashboard</a>
+            <a href="account-check.html">Check Account</a>
+        </div>
+    </nav>
+
+    <div class="container">
+        <header class="page-header">
+            <h1>Analysis Dashboard</h1>
+            <p>Overview of fake account detection results</p>
+        </header>
+
+        <!-- Stats Cards -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-icon">📊</div>
+                <div class="stat-content">
+                    <h3 id="totalProcessed">0</h3>
+                    <p>Total Accounts Processed</p>
+                </div>
+            </div>
+            
+            <div class="stat-card danger">
+                <div class="stat-icon">🚨</div>
+                <div class="stat-content">
+                    <h3 id="totalFlagged">0</h3>
+                    <p>Flagged as Suspicious</p>
+                </div>
+            </div>
+            
+            <div class="stat-card warning">
+                <div class="stat-icon">📈</div>
+                <div class="stat-content">
+                    <h3 id="flaggedPercentage">0%</h3>
+                    <p>Suspicion Rate</p>
+                </div>
+            </div>
+            
+            <div class="stat-card success">
+                <div class="stat-icon">✅</div>
+                <div class="stat-content">
+                    <h3 id="cleanAccounts">0</h3>
+                    <p>Clean Accounts</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="action-bar">
+            <button id="refreshBtn" class="btn btn-primary">🔄 Refresh Data</button>
+            <button id="exportBtn" class="btn btn-success">📥 Export Flagged Accounts</button>
+            <button id="analyzeBtn" class="btn btn-warning">🔍 Re-analyze Data</button>
+        </div>
+
+        <!-- Recent Activity -->
+        <div class="card">
+            <div class="card-header">
+                <h3>Recent Flagged Accounts</h3>
+            </div>
+            <div class="card-body">
+                <div id="recentActivity" class="activity-list">
+                    <p class="no-data">No recent activity to display. Upload and analyze data to see results.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Flagged Accounts Table -->
+        <div class="card">
+            <div class="card-header">
+                <h3>All Flagged Accounts</h3>
+                <div class="table-controls">
+                    <input type="text" id="searchFilter" placeholder="Search accounts..." class="search-input">
+                    <select id="riskFilter" class="filter-select">
+                        <option value="">All Risk Levels</option>
+                        <option value="HIGH">High Risk</option>
+                        <option value="MEDIUM">Medium Risk</option>
+                        <option value="LOW">Low Risk</option>
+                    </select>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="table-container">
+                    <table id="flaggedAccountsTable" class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Username</th>
+                                <th>Risk Level</th>
+                                <th>Suspicion Score</th>
+                                <th>Primary Issues</th>
+                                <th>Account Age</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="flaggedAccountsBody">
+                            <tr>
+                                <td colspan="6" class="no-data">No flagged accounts to display.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- ML Integration Notice -->
+        <div class="notice-card">
+            <div class="notice-icon">🤖</div>
+            <div class="notice-content">
+                <h4>ML Model Integration Coming Soon</h4>
+                <p>Currently using heuristic-based detection. Machine learning model integration is planned for enhanced accuracy and advanced pattern recognition.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Account Details Modal -->
+    <div id="accountModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Account Analysis Details</h3>
+                <span class="close">&times;</span>
+            </div>
+            <div id="modalBody" class="modal-body">
+                <!-- Account details will be populated here -->
+            </div>
+        </div>
+    </div>
+
+    <script src="js/auth.js"></script>
+    <script src="js/dashboard.js"></script>
+</body>
+</html>

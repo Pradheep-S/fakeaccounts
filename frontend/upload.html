@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload Data - Fake Account Detector</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-brand">
+            <h2>🔍 Fake Account Detector</h2>
+        </div>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="upload.html" class="active">Upload Data</a>
+            <a href="dashboard.html">Dashboard</a>
+            <a href="account-check.html">Check Account</a>
+        </div>
+    </nav>
+
+    <div class="container">
+        <header class="page-header">
+            <h1>Upload Account Data</h1>
+            <p>Upload CSV or JSON files containing social media account data for analysis</p>
+        </header>
+
+        <!-- Upload Section -->
+        <div class="card">
+            <div class="card-header">
+                <h3>File Upload</h3>
+            </div>
+            <div class="card-body">
+                <form id="uploadForm" enctype="multipart/form-data">
+                    <div class="upload-area" id="uploadArea">
+                        <div class="upload-icon">📁</div>
+                        <p class="upload-text">Drag and drop your file here or click to browse</p>
+                        <p class="upload-subtitle">Supports CSV and JSON files (Max 10MB)</p>
+                        <input type="file" id="fileInput" accept=".csv,.json" hidden>
+                    </div>
+                    
+                    <div id="fileInfo" class="file-info" style="display: none;">
+                        <div class="file-details">
+                            <span id="fileName"></span>
+                            <span id="fileSize"></span>
+                        </div>
+                        <button type="button" id="removeFile" class="btn btn-danger btn-sm">Remove</button>
+                    </div>
+                    
+                    <div class="form-actions">
+                        <button type="submit" id="uploadBtn" class="btn btn-primary" disabled>
+                            📤 Upload and Process
+                        </button>
+                    </div>
+                </form>
+                
+                <div id="uploadProgress" class="progress-container" style="display: none;">
+                    <div class="progress-bar">
+                        <div id="progressBar" class="progress-fill"></div>
+                    </div>
+                    <p id="progressText">Uploading...</p>
+                </div>
+                
+                <div id="uploadResult" class="result-container" style="display: none;"></div>
+            </div>
+        </div>
+
+        <!-- Data Format Guide -->
+        <div class="card">
+            <div class="card-header">
+                <h3>Expected Data Format</h3>
+            </div>
+            <div class="card-body">
+                <div class="format-tabs">
+                    <button class="tab-btn active" data-tab="csv">CSV Format</button>
+                    <button class="tab-btn" data-tab="json">JSON Format</button>
+                </div>
+                
+                <div id="csvFormat" class="format-content active">
+                    <h4>CSV File Requirements:</h4>
+                    <p>Your CSV file should include the following columns (case-insensitive):</p>
+                    <div class="format-example">
+                        <strong>Required fields:</strong>
+                        <ul>
+                            <li><code>username</code> - Account username/handle</li>
+                            <li><code>created_at</code> - Account creation date (YYYY-MM-DD format)</li>
+                        </ul>
+                        
+                        <strong>Optional fields (enhance detection accuracy):</strong>
+                        <ul>
+                            <li><code>email</code> - Account email address</li>
+                            <li><code>full_name</code> - User's full name</li>
+                            <li><code>bio</code> - Profile biography</li>
+                            <li><code>followers</code> - Number of followers</li>
+                            <li><code>following</code> - Number of accounts following</li>
+                            <li><code>posts</code> - Total number of posts</li>
+                            <li><code>profile_picture</code> - Profile picture URL</li>
+                            <li><code>email_verified</code> - Email verification status (true/false)</li>
+                            <li><code>phone_verified</code> - Phone verification status (true/false)</li>
+                            <li><code>website</code> - User's website</li>
+                            <li><code>location</code> - User's location</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div id="jsonFormat" class="format-content">
+                    <h4>JSON File Requirements:</h4>
+                    <p>Your JSON file should be an array of account objects:</p>
+                    <div class="format-example">
+                        <pre><code>[
+  {
+    "username": "john_doe123",
+    "email": "john@example.com",
+    "full_name": "John Doe",
+    "bio": "Software developer",
+    "followers": 150,
+    "following": 200,
+    "posts": 85,
+    "created_at": "2023-05-15",
+    "email_verified": true,
+    "phone_verified": false,
+    "profile_picture": "https://example.com/profile.jpg"
+  }
+]</code></pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+        <!-- Analysis Options -->
+        <div class="card">
+            <div class="card-header">
+                <h3>Analysis Settings</h3>
+            </div>
+            <div class="card-body">
+                <div class="settings-grid">
+                    <div class="setting-item">
+                        <label for="suspicionThreshold">Suspicion Threshold:</label>
+                        <select id="suspicionThreshold">
+                            <option value="2">Low (Score ≥ 2)</option>
+                            <option value="3" selected>Medium (Score ≥ 3)</option>
+                            <option value="4">High (Score ≥ 4)</option>
+                            <option value="5">Very High (Score ≥ 5)</option>
+                        </select>
+                    </div>
+                    
+                    <div class="setting-item">
+                        <label>
+                            <input type="checkbox" id="autoAnalyze" checked>
+                            Auto-analyze after upload
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/auth.js"></script>
+    <script src="js/upload.js"></script>
+</body>
+</html>

@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Account Check - Fake Account Detector</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-brand">
+            <h2>🔍 Fake Account Detector</h2>
+        </div>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="dashboard.html">Dashboard</a>
+            <a href="upload.html">Upload Data</a>
+            <a href="account-check.html" class="active">Check Account</a>
+        </div>
+    </nav>
+
+    <div class="container">
+        <header class="page-header">
+            <h1>Individual Account Check</h1>
+            <p>Analyze a specific account for authenticity</p>
+        </header>
+
+        <!-- Account Search -->
+        <div class="card">
+            <div class="card-header">
+                <h3>Account Lookup</h3>
+            </div>
+            <div class="card-body">
+                <form id="checkForm" class="check-form">
+                    <div class="search-group">
+                        <input type="text" id="usernameInput" placeholder="Enter username or handle..." required>
+                        <button type="submit" class="btn btn-primary">🔍 Analyze Account</button>
+                    </div>
+                </form>
+                
+                <div id="searchResult" class="search-result" style="display: none;"></div>
+            </div>
+        </div>
+
+        <!-- Analysis Results -->
+        <div id="analysisCard" class="card" style="display: none;">
+            <div class="card-header">
+                <h3>Analysis Results</h3>
+            </div>
+            <div class="card-body">
+                <div class="analysis-overview">
+                    <div class="account-header">
+                        <div class="account-info">
+                            <h4 id="accountUsername"></h4>
+                            <p id="accountFullName"></p>
+                        </div>
+                        <div class="risk-badge">
+                            <span id="riskLevel" class="risk-level"></span>
+                        </div>
+                    </div>
+                    
+                    <div class="score-section">
+                        <div class="score-display">
+                            <div class="score-circle">
+                                <span id="suspicionScore">0</span>
+                                <small>/10</small>
+                            </div>
+                            <p>Suspicion Score</p>
+                        </div>
+                        
+                        <div class="score-interpretation">
+                            <h5>Score Interpretation:</h5>
+                            <ul>
+                                <li><strong>0-2:</strong> Low risk - Likely legitimate account</li>
+                                <li><strong>3-4:</strong> Medium risk - Some suspicious indicators</li>
+                                <li><strong>5+:</strong> High risk - Multiple red flags detected</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Detected Issues -->
+                <div class="issues-section">
+                    <h4>🚨 Detected Issues</h4>
+                    <div id="detectedIssues" class="issues-list">
+                        <!-- Issues will be populated here -->
+                    </div>
+                </div>
+
+                <!-- Detailed Analysis -->
+                <div class="details-grid">
+                    <div class="detail-card">
+                        <h5>👤 Profile Analysis</h5>
+                        <div id="profileAnalysis" class="detail-content">
+                            <!-- Profile analysis details -->
+                        </div>
+                    </div>
+                    
+                    <div class="detail-card">
+                        <h5>📊 Activity Analysis</h5>
+                        <div id="activityAnalysis" class="detail-content">
+                            <!-- Activity analysis details -->
+                        </div>
+                    </div>
+                    
+                    <div class="detail-card">
+                        <h5>🔍 Metadata Analysis</h5>
+                        <div id="metadataAnalysis" class="detail-content">
+                            <!-- Metadata analysis details -->
+                        </div>
+                    </div>
+                    
+                    <div class="detail-card">
+                        <h5>📝 Content Analysis</h5>
+                        <div id="contentAnalysis" class="detail-content">
+                            <!-- Content analysis details -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Account Data -->
+                <div class="account-data-section">
+                    <h4>📋 Account Information</h4>
+                    <div class="data-grid">
+                        <div class="data-item">
+                            <label>Email:</label>
+                            <span id="accountEmail">-</span>
+                        </div>
+                        <div class="data-item">
+                            <label>Followers:</label>
+                            <span id="accountFollowers">-</span>
+                        </div>
+                        <div class="data-item">
+                            <label>Following:</label>
+                            <span id="accountFollowing">-</span>
+                        </div>
+                        <div class="data-item">
+                            <label>Posts:</label>
+                            <span id="accountPosts">-</span>
+                        </div>
+                        <div class="data-item">
+                            <label>Account Age:</label>
+                            <span id="accountAge">-</span>
+                        </div>
+                        <div class="data-item">
+                            <label>Email Verified:</label>
+                            <span id="emailVerified">-</span>
+                        </div>
+                        <div class="data-item">
+                            <label>Phone Verified:</label>
+                            <span id="phoneVerified">-</span>
+                        </div>
+                        <div class="data-item">
+                            <label>Location:</label>
+                            <span id="accountLocation">-</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Actions -->
+                <div class="action-section">
+                    <button id="exportSingleResult" class="btn btn-success">📥 Export Analysis</button>
+                    <button id="checkAnother" class="btn btn-outline">🔍 Check Another Account</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- How It Works -->
+        <div class="card">
+            <div class="card-header">
+                <h3>How the Analysis Works</h3>
+            </div>
+            <div class="card-body">
+                <div class="analysis-steps">
+                    <div class="step">
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <h5>Profile Completeness</h5>
+                            <p>Analyzes bio, profile picture, contact information, and social connections</p>
+                        </div>
+                    </div>
+                    
+                    <div class="step">
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <h5>Activity Patterns</h5>
+                            <p>Examines posting frequency, timing, and geographic consistency</p>
+                        </div>
+                    </div>
+                    
+                    <div class="step">
+                        <div class="step-number">3</div>
+                        <div class="step-content">
+                            <h5>Account Metadata</h5>
+                            <p>Checks verification status, email domains, and account age</p>
+                        </div>
+                    </div>
+                    
+                    <div class="step">
+                        <div class="step-number">4</div>
+                        <div class="step-content">
+                            <h5>Content Analysis</h5>
+                            <p>Detects duplicate content and suspicious username patterns</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="ml-notice">
+                    <div class="notice-icon">🤖</div>
+                    <div class="notice-text">
+                        <strong>ML Enhancement Coming Soon:</strong> 
+                        Currently using rule-based heuristics. Machine learning integration will provide 
+                        more sophisticated pattern recognition and improved accuracy.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/auth.js"></script>
+    <script src="js/account-check.js"></script>
+</body>
+</html>
